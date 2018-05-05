@@ -1,0 +1,35 @@
+#%RAML 1.0
+---
+title: RAML SpringBoot TODOs API
+baseUri: /
+version: v1
+mediaType: application/json
+
+schemas:
+  - todo: !include todo.json
+
+/todos:
+  description: "The Todos resource."
+  get:
+    description: "Returns a list of todos."
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                { "id": 1, "task": "Design the API", "priority": 1 },
+                { "id": 2, "task": "Generate the interfaces", "priority": 2 }
+              ]
+  post:
+    description: "Generate a new todo."
+    body:
+      application/json:
+        schema: todo
+        example: |
+          { "task": "Design the API", "priority": 1 }
+    responses:
+      201:
+        description: "Todo created"
+      400:
+        description: "Can't create Todo from provided entity"
